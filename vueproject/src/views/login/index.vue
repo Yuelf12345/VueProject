@@ -35,8 +35,8 @@ export default {
       };
       return {
         loginForm: {
-          username: '',
-          password: ''
+          username: '12',
+          password: '12'
         },
         loginRules: {
           username: [{required: true,  validator: validateUsername, trigger: 'blur' }],
@@ -52,8 +52,8 @@ export default {
           if (valid) {
             //登录逻辑
             this.loading = true;
-            this.$store.dispatch('login',this.loginForm).then(()=>{
-              // this.$router.push({ path: this.redirect || '/' })
+            this.$store.dispatch('user/login',this.loginForm).then(()=>{
+              this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             }).catch(()=>{
               this.loading = false

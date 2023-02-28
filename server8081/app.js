@@ -2,24 +2,27 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const { koaBody } = require('koa-body');
 
+const login = require('./api/login');
+
 const server = new Koa();
 const router = new Router();
+//body 解析中间件
+server.use(koaBody(
+    {
+        multipart:true,
+        //处理上传的二进制文件
+        formidable:{
+            //上传目录 文件名后缀
+            uploadDir:__dirname + '/public/upload',
+            keepExtensions:true
+        }
+    }
+));
 
 router.get('/',(ctx,next)=>{
     ctx.body = '后台'
 });
-router.post('/login',koaBody({
-    multipart:true
-}),async ctx=>{
-    let {username,password} = ctx.request.body;
-    if(username && password){
-        ctx.status = 200;
-        return ctx.body = {
-            state: 0,
-            msg: '登录成功'
-        }
-    }
-})
+router.post('/login',login.login)
 
 server.use(router.routes());
 

@@ -5,11 +5,24 @@ import Router from 'vue-router'
 //使用路由插件
 Vue.use(Router)
 
+/* 引入最外层骨架的一级路由组件*/
+import Layout from '@/layout'
+
 export const constantRoutes = [
     {
       path: '/login',
       component: () => import('@/views/login/index'),
       hidden: true
+    },{
+      path:'/',
+      component:Layout,
+      redirect: '/dashboard',
+      children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: '首页', icon: 'dashboard' }
+      }]
     },
     {
         path: '*',
