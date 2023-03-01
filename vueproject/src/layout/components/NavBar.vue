@@ -12,13 +12,16 @@
                   </router-link>
                      <el-dropdown-item icon="el-icon-coffee">菜单一</el-dropdown-item>
                      <el-dropdown-item icon="el-icon-ice-tea">菜单二</el-dropdown-item>
-                     <el-dropdown-item icon="el-icon-milk-tea">菜单三</el-dropdown-item>
+                     <el-dropdown-item icon="el-icon-switch-button" @click.native="logout">退出</el-dropdown-item>
                </el-dropdown-menu>
             </el-dropdown>
          </div>
     </div>
 </template>
 <script>
+
+import { mapGetters } from 'vuex'
+
 export default {
    data() {
       return {
@@ -27,8 +30,18 @@ export default {
    created(){
    },
    computed:{
+    ...mapGetters([
+      'avatar'
+    ])
+   },
+   mounted(){
+    console.log(this.$store.state.user.avatar);
    },
    methods:{
+      async logout() {
+        await this.$store.dispatch('user/logout')
+        this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      }
    },
 }
 </script>

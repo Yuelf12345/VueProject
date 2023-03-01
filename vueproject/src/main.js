@@ -6,6 +6,7 @@ import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import '@/permission' // 路由权限控制
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 

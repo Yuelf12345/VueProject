@@ -23,6 +23,9 @@ router.get('/',(ctx,next)=>{
     ctx.body = '后台'
 });
 router.post('/login',login.login)
+router.get('/info',login.getInfo)
+router.post('/logout',login.logout)
+
 
 server.use(router.routes());
 

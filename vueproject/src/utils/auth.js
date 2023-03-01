@@ -7,6 +7,7 @@ export function getToken(){
 }
 
 export function setToken(token) {
+    console.log('2.设置token:'+TokenKey,token);
     return Cookies.set(TokenKey, token)
   }
   

@@ -12,6 +12,10 @@
           <el-button :loading="loading" type="primary" @click.native.prevent="handleLogin">提交</el-button>
           <el-button @click="resetForm('loginForm')">重置</el-button>
         </el-form-item>
+        <div class="tips">
+          <span style="margin-right:20px;">admin: 11  user: 22</span>
+          <span> password: any</span>
+        </div>
       </el-form>
     </div>
 </template>
@@ -35,8 +39,8 @@ export default {
       };
       return {
         loginForm: {
-          username: '12',
-          password: '12'
+          username: '11',
+          password: '11'
         },
         loginRules: {
           username: [{required: true,  validator: validateUsername, trigger: 'blur' }],
@@ -72,5 +76,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- 
+   .tips {
+    font-size: 14px;
+    color: #252525;
+    margin-bottom: 10px;
+
+    span {
+      &:first-of-type {
+        margin-right: 16px;
+      }
+    }
+  }
 </style>
