@@ -61,16 +61,16 @@ export const constantRoutes = [
           title: '角色管理',
         },
       },
-      // {
-      //   name: 'RoleAuth',
-      //   path: 'role/auth/:id',
-      //   component: () => import('@/views/acl/role/roleAuth'),
-      //   meta: {
-      //     activeMenu: '/acl/role/list',
-      //     title: '角色授权',
-      //   },
-      //   hidden: true,
-      // },
+      {
+        name: 'RoleAuth',
+        path: 'role/auth/:id',
+        component: () => import('@/views/acl/role/roleAuth'),
+        meta: {
+          activeMenu: '/acl/role/list',
+          title: '角色授权',
+        },
+        hidden: true,
+      },
       {
         name: 'Permission',
         path: 'permission/list',
@@ -80,7 +80,8 @@ export const constantRoutes = [
         },
       },
     ]
-  }
+  },
+  
 ];
 
   const createRouter = () => new Router({
