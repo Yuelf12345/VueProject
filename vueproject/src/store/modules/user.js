@@ -1,7 +1,8 @@
 //引入登录|退出登录|获取用户信息的接口函数
 import { login ,logout, getInfo} from '@/api/user'
 import { setToken , getToken, removeToken } from '@/utils/auth'
-
+import { resetRouter,asyncRoutes } from '@/router'
+import router from '@/router';
 
 //箭头函数
 const getDefaultState = () => {
@@ -14,6 +15,8 @@ const getDefaultState = () => {
     avatar: '',
     //角色信息
     roles:[],
+    // 角色路由
+    resultAllRoutes:[]
   }
 }
 
@@ -36,7 +39,13 @@ const mutations = {
      state.avatar = userInfo.avatar;
      //角色
      state.roles = userInfo.roles;
-    }
+    },
+    // 存储路由
+    SET_ROLES (state, roles) {
+      state.roles = resultAllRoutes.concat(roles)
+  },
+
+
 }
 
 const actions =  {
@@ -62,7 +71,8 @@ const actions =  {
           getInfo(state.token).then(response => {
             const { data } = response;
             console.log('3.后端返回用户信息:'+JSON.stringify(data));
-            commit('SET_USERINFO',data);
+            commit('SET_USERINFO',data); 
+            commit('SET_ROLES',asyncRoutes)  
             resolve(data)
           }).catch(error => {
             reject(error)

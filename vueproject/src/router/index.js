@@ -8,8 +8,8 @@ Vue.use(Router)
 /* 引入最外层骨架的一级路由组件*/
 import Layout from '@/layout'
 
+// 常量路由 比如首页
 export const constantRoutes = [
-  
     {
       path: '/login',
       component: () => import('@/views/login/index'),
@@ -25,14 +25,17 @@ export const constantRoutes = [
         meta: { title: '首页', icon: 'dashboard' }
       }]
     },
-    {
+  ]
+
+  // 任意路由 比如404
+  export const anyRouters = [{
         path: '*',
         component: () => import('@/views/notFount/NotFound.vue'),
         hidden: true
-      },
+    }
   ]
 
-
+  // 异步路由 不同用户不同路由,根据权限来定的
   export const asyncRoutes = [
     {
     name: 'Acl',
@@ -86,11 +89,14 @@ export const constantRoutes = [
 
   const createRouter = () => new Router({
     mode: 'history', // require service support
-    scrollBehavior: () => ({ y: 0 }),
-    //因为注册的路由是‘死的’，‘活的’路由如果根据不同用户（角色）可以展示不同菜单
     routes: constantRoutes
   })
   
   const router = createRouter()
-  
+
+  export function resetRouter () {
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher 
+  }
+    
   export default router

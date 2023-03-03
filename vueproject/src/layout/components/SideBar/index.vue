@@ -15,11 +15,15 @@
                 <span slot="title">首页</span>
             </el-menu-item>
             <SideBarItem v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+            <el-menu-item index="/user/list">
+                  <i></i>
+                  <span slot="title">11111</span>
+          </el-menu-item >
             </el-menu>
     </div>
 </template>
 <script>
-
+import { mapGetters } from 'vuex';
 import { asyncRoutes } from '@/router';
 import SideBarItem from './SideBarItem.vue'
 
@@ -28,15 +32,18 @@ export default {
   props:['isCollapse'],
     data() {
       return {
-        isCollapse: true
+       
       };
     },
     mounted(){
       console.log('4.展示路由信息,动态渲染菜单'+ asyncRoutes.filter((item) => item.meta?.permission));
     },
     computed:{
+      //获取需要展示的路由
+      ...mapGetters(["sidebar"]),
       routes(){
         return asyncRoutes.filter((item) => item.meta?.permission)
+        // return  this.$store.state.user.resultAllRoutes;
       }
     },
     methods: {
