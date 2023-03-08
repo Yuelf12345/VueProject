@@ -7,7 +7,7 @@
             <el-menu default-active="1-4-1" class="el-menu-vertical-demo" 
             @open="handleOpen" 
             @close="handleClose" 
-            :collapse="isCollapse"
+            :Collapse = isCollapse
             router
             >
             <el-menu-item index="1">
@@ -32,7 +32,7 @@ export default {
   props:['isCollapse'],
     data() {
       return {
-       
+        
       };
     },
     mounted(){

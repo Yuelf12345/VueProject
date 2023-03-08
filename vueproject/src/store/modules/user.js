@@ -42,7 +42,7 @@ const mutations = {
     },
     // 存储路由
     SET_ROLES (state, roles) {
-      state.roles = resultAllRoutes.concat(roles)
+      // state.roles = resultAllRoutes.concat(roles)
   },
 
 
@@ -72,7 +72,7 @@ const actions =  {
             const { data } = response;
             console.log('3.后端返回用户信息:'+JSON.stringify(data));
             commit('SET_USERINFO',data); 
-            commit('SET_ROLES',asyncRoutes)  
+            // commit('SET_ROLES',asyncRoutes)  
             resolve(data)
           }).catch(error => {
             reject(error)

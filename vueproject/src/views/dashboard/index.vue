@@ -1,20 +1,16 @@
 <template>
     <div> 
-        dashboard
+        <Card></Card>
     </div>
 </template>
 <script>
+
+import Card from './Card'
 export default {
-   data() {
-      return {
-      }
-   },
-   created(){
-   },
-   computed:{
-   },
-   methods:{
-   },
+   name:'',
+   components:{
+    Card
+   }
 }
 </script>
 <style lang="scss" scoped>
