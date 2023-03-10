@@ -1,7 +1,7 @@
 //引入登录|退出登录|获取用户信息的接口函数
 import { login ,logout, getInfo} from '@/api/user'
 import { setToken , getToken, removeToken } from '@/utils/auth'
-import { resetRouter,asyncRoutes } from '@/router'
+import {anyRouters, resetRouter,asyncRoutes,constantRoutes } from '@/router'
 import router from '@/router';
 
 //箭头函数
@@ -15,6 +15,8 @@ const getDefaultState = () => {
     avatar: '',
     //角色信息
     roles:[],
+    //对比之后【项目中已有的异步路由，与服务器返回的标记信息进行对比最终需要展示的理由】
+    resultAsyncRoutes:[],
     // 角色路由
     resultAllRoutes:[]
   }
@@ -41,12 +43,11 @@ const mutations = {
      state.roles = userInfo.roles;
     },
     // 存储路由
-    SET_ROLES (state, roles) {
-      // state.roles = resultAllRoutes.concat(roles)
+    SET_ROLES (state, routes) {
+    state.resultAllRoutes = routes
   },
-
-
 }
+
 
 const actions =  {
     async login({ commit }, userInfo) {
@@ -61,7 +62,7 @@ const actions =  {
           setToken(result.data.token);
           return 'ok'
         }else{
-          return Promise.reject(new Error('faile'));
+          return Promise.reject(new Error('fail'));
         }
       },
 
@@ -71,8 +72,8 @@ const actions =  {
           getInfo(state.token).then(response => {
             const { data } = response;
             console.log('3.后端返回用户信息:'+JSON.stringify(data));
-            commit('SET_USERINFO',data); 
-            // commit('SET_ROLES',asyncRoutes)  
+            commit('SET_USERINFO',data);
+            localStorage.setItem('role',data.roles)
             resolve(data)
           }).catch(error => {
             reject(error)

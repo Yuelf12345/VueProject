@@ -18,6 +18,7 @@ export const constantRoutes = [
       path:'/',
       component:Layout,
       redirect: '/dashboard',
+      permission: true,
       children: [{
         path: 'dashboard',
         name: 'Dashboard',
@@ -46,6 +47,7 @@ export const constantRoutes = [
       title: '权限管理',
       icon: 'el-icon-lock',
       permission: true,
+      roles:['admin']
     },
     children: [
       {
@@ -54,6 +56,7 @@ export const constantRoutes = [
         component: () => import('@/views/acl/user/list'),
         meta: {
           title: '用户管理',
+          roles:['admin']
         },
       },
       {
@@ -62,6 +65,7 @@ export const constantRoutes = [
         component: () => import('@/views/acl/role/list'),
         meta: {
           title: '角色管理',
+          roles:['admin']
         },
       },
       {
@@ -71,6 +75,7 @@ export const constantRoutes = [
         meta: {
           activeMenu: '/acl/role/list',
           title: '角色授权',
+          roles:['admin']
         },
         hidden: true,
       },
@@ -80,15 +85,14 @@ export const constantRoutes = [
         component: () => import('@/views/acl/permission/list'),
         meta: {
           title: '菜单管理',
+          roles:['admin']
         },
       },
     ]
   },
-  
 ];
-
   const createRouter = () => new Router({
-    mode: 'history', // require service support
+    // mode: 'history', // require service support
     routes: constantRoutes
   })
   

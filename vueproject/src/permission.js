@@ -16,6 +16,7 @@ router.beforeEach(async(to,from,next)=>{
     NProgress.start()
 
     const hasToken = getToken()
+    //是否有角色
     if(hasToken){
         if(to.path === '/login'){
             next({ path: '/' })

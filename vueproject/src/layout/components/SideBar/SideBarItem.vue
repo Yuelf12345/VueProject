@@ -5,7 +5,7 @@
             <i :class="item?.meta.icon"></i>
             <span slot="title">{{item?.meta.title}}</span>
         </template>
-        <SideBarItem v-for="i in item.children" :item="i"/>
+        <SideBarItem v-for="(i,key) in item.children" :key="key" :item="i"/>
     </el-submenu>
 
     <el-menu-item v-else :index="item?.path" v-show="!item.hidden">

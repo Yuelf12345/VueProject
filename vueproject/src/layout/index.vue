@@ -1,8 +1,6 @@
 <template>
     <el-container class="main-container">
-      <el-aside width="collapse">
-        <Sidebar></Sidebar>
-      </el-aside>
+      <Sidebar></Sidebar>
       <el-container>
         <el-header class="main-header">
           <Navbar></Navbar>
