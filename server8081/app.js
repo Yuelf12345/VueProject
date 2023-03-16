@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const { koaBody } = require('koa-body');
 
 const login = require('./api/login');
+const user = require('./api/user');
 
 const server = new Koa();
 const router = new Router();
@@ -25,6 +26,7 @@ router.get('/',(ctx,next)=>{
 router.post('/login',login.login)
 router.get('/info',login.getInfo)
 router.post('/logout',login.logout)
+router.get('/user_list',user.getUserList)
 
 
 server.use(router.routes());

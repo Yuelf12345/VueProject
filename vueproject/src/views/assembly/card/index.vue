@@ -1,6 +1,6 @@
 <template>
     <div> 
-        用户权限
+        card
     </div>
 </template>
 <script>

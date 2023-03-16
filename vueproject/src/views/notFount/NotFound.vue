@@ -1,9 +1,13 @@
 <template>
     <div> 
-        <h1>404</h1>
+        <img src="@/assets/404_images/404.png" alt="">
+        当前角色可访问路由：{{ menuData }}
     </div>
 </template>
 <script>
+
+import { mapGetters } from 'vuex'
+
 export default {
    data() {
       return {
@@ -12,6 +16,9 @@ export default {
    created(){
    },
    computed:{
+    ...mapGetters([
+      'menuData'
+    ])
    },
    methods:{
    },

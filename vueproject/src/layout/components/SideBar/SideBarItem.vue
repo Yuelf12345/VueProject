@@ -1,22 +1,19 @@
 <template>
-
-    <el-submenu :index="item.path" v-if="item?.children" :popper-append-to-body = false>
-        <template #title>
-            <i :class="item?.meta.icon"></i>
-            <span slot="title">{{item?.meta.title}}</span>
-        </template>
-        <SideBarItem v-for="(i,key) in item.children" :key="key" :item="i"/>
+    <el-submenu :index="item.path"  v-if="item.children" popper-append-to-body>
+              <template slot="title">
+                <i :class=item.meta.icon></i>
+                <span slot="title">{{item?.meta.title}}</span>
+              </template>
+              <SideBarItem v-for="(i,key) in item.children" :key="key" :item="i"/>
     </el-submenu>
 
-    <el-menu-item v-else :index="item?.path" v-show="!item.hidden">
-            <i :class=item.meta.icon></i>
+    <el-menu-item v-else :index="item.path" v-show="!item.hidden">
+        <i :class=item.meta.icon></i>
             <span slot="title">{{item?.meta.title}}</span>
-    </el-menu-item >
-  
+    </el-menu-item>
 </template>
    
 <script>
-
 export default {
     name: 'SideBarItem',
     props:{
@@ -37,12 +34,11 @@ export default {
         return {
             
         }
+    },
+    mounted(){
+        this.$children[0].$parent = this.$parent
     }
 }
 
 
 </script>
-
-<style lang="scss" scoped>
-
-</style>

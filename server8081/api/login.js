@@ -46,10 +46,10 @@ module.exports = {
             return ctx.body = {
                 code:2000,
                 data:{
-                    roles: ['editor'],
-                    introduction: 'I am an editor',
+                    roles: ['user01'],
+                    introduction: 'I am an user01',
                     avatar: 'https://img.soogif.com/1CMjb5x0EATQArD0vGJ1TionelKfOQ2r.gif',
-                    name: 'Normal Editor'
+                    name: 'Normal User01'
                 }
             }
         }else {

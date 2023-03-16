@@ -1,9 +1,11 @@
 <template>
     <div> 
-        用户权限
+        nodefile
+        当前角色可访问路由：{{ menuData }}
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
    data() {
       return {
@@ -12,6 +14,9 @@ export default {
    created(){
    },
    computed:{
+    ...mapGetters([
+      'menuData'
+    ])
    },
    methods:{
    },

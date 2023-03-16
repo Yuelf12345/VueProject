@@ -1,6 +1,6 @@
 <template>
     <div> 
-        用户权限
+        table
     </div>
 </template>
 <script>

@@ -1,14 +1,16 @@
 <template>
     <div> 
-        list
+        <publicTable></publicTable>
     </div>
 </template>
 <script>
+import publicTable from '@/components/publicTable .vue'
 export default {
    data() {
       return {
       }
    },
+   components:{publicTable},
    created(){
    },
    computed:{
