@@ -1,22 +1,22 @@
 <template>
-    <div> 
-        权限列表
+    <div>
+        <publicTable1></publicTable1>
     </div>
 </template>
 <script>
+import publicTable1 from '@/components/publicTable1.vue'
 export default {
-   data() {
-      return {
-      }
-   },
-   created(){
-   },
-   computed:{
-   },
-   methods:{
-   },
+    components: { publicTable1 },
+    data() {
+        return {
+        }
+    },
+    created() {
+    },
+    computed: {
+    },
+    methods: {
+    },
 }
 </script>
-<style lang="scss" scoped>
- 
-</style>
+<style lang="scss" scoped></style>
