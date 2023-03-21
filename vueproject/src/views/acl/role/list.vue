@@ -7,15 +7,19 @@
 
       @btnEdit="editClick"
       @btnRemove="deleteOneClick"
-      
-      ></publicTable2>
+      />
+
+      <tableDialog 
+         ref="diaLog"
+      />
     </div>
 </template>
 <script>
 import publicTable2 from '@/components/publicTable2.vue';
+import tableDialog from '@/components/tableDialog.vue';
 import getData from '@/utils/data'
 export default {
-   components:{publicTable2},
+   components:{publicTable2,tableDialog},
    data() {
       return {
          da:{
@@ -76,7 +80,7 @@ export default {
          //   .catch((err) => {
          //     console.log(err);
          //   });
-         console.log(searchForm);
+         // console.log(searchForm);
          this.da.tableTotal = getData(10).length
          if(!searchForm.pageSize){
             this.da.page.currentPage = 1
@@ -92,21 +96,29 @@ export default {
          )
       },
       // 编辑
-      editClick(){},
+      editClick(){
+         this.$refs.diaLog.open()
+      },
       // 删除
       deleteOneClick(data){
          this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
                confirmButtonText: "确定",
                cancelButtonText: "取消",
                type: "warning",
-            }).then(()=>{
+            }).then(async ()=>{
                // 删除操作
-               removeUser(data.id)
-            }) .catch(() => {
-            this.$message({
-               type: "info",
-               message: "已取消删除",
-            });
+               await this.$API.user.removeUser(data.id).then((res)=>{
+                  if(res.code == '2000'){
+                     this.$message({showClose: true,message: "删除用户成功",type: "success",});
+                     console.log(res.msg);
+                  }else{
+                     this.$message({showClose: true,message: "删除用户失败",type: "error",});    
+                  }
+               }).catch((err)=>{console.log(err);})
+               this.getList({});
+            }).catch((err) => {
+               console.log(err);
+               this.$message({showClose: true,message: "已取消删除",type: "info",}); 
         });
       }
    },

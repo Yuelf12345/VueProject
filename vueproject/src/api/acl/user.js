@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-const api_name = '/admin/acl/user'
 
 export function getUserList(search){
     return request({
@@ -13,14 +12,14 @@ export function getUserList(search){
 // 删除一个
 export function removeUser(id) {
     return request({
-      url: `${api_name}/remove/${id}`,
+      url: `/api/removeUser/${id}`,
       method: 'delete'
     })
   }
 // 删除多个
   export function removeUserAll(ids) {
     return request({
-      url: `${api_name}/batchRemove`,
+      url: '/api/removeUser',
       method: 'delete',
       data: ids
     })

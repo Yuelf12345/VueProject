@@ -23,10 +23,16 @@ server.use(koaBody(
 router.get('/',(ctx,next)=>{
     ctx.body = '后台'
 });
+
 router.post('/login',login.login)
 router.get('/info',login.getInfo)
 router.post('/logout',login.logout)
+//获取列表
 router.get('/user_list',user.getUserList)
+//删除用户
+router.delete('/removeUser/:id',user.removeUser)
+// 删除多选用户
+router.delete('/removeUserAll',user.removeUserAll)
 
 
 server.use(router.routes());
