@@ -7,8 +7,12 @@ export function getToken(){
 }
 
 export function setToken(token) {
+  // let seconds = 10;
+  // let expires = new Date(new Date() * 1 + seconds * 1000);
     console.log('2.设置token:'+TokenKey,token);
-    return Cookies.set(TokenKey, token)
+    return Cookies.set(TokenKey, token,
+      // { expires: expires } 过期时间
+      )
   }
   
 export function removeToken() {

@@ -20,8 +20,6 @@ router.beforeEach(async(to,from,next)=>{
         //进度条开始
         NProgress.start()
     }
-
-
     var userRoutes = [];
     const hasToken = getToken()
     //是否有角色

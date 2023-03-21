@@ -24,7 +24,7 @@
    width: 100%;
    max-height: 100vh;
    position: relative;
-   overflow: hidden;
+  //  overflow: hidden;
  }
  .fixed-header+.app-main {
    padding-top: 50px;

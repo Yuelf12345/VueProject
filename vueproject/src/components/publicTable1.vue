@@ -14,8 +14,15 @@
             <el-table-column prop="O_Num" label="订单编号">
             </el-table-column>
             <el-table-column prop="O_Status" label="订单状态">
+                <template slot-scope="scope">
+                    <el-tag v-if="scope.row.O_Status == '未开始'">未开始</el-tag>
+                    <el-tag type="success" v-else>进行中</el-tag>
+                </template>
             </el-table-column>
             <el-table-column prop="P_Progress" label="生产进度">
+                <template slot-scope="scope">
+                    <el-progress :percentage="scope.row.P_Progress"></el-progress>
+                </template>        
             </el-table-column>
             <el-table-column prop="C_Emission" label="当前碳排量">
             </el-table-column>
@@ -45,7 +52,16 @@ import getData from '@/utils/data'
 export default {
     data() {
         return {
-            tableData: [],
+            tableData: [
+                // {
+                //     id:1,
+                //     FO_Num:12,
+                //     O_Num:1,
+                //     O_Status:'开始',
+                //     P_Progress:50,
+                //     C_Emission:300
+                // }
+            ],
             totalSize: 1,
             currentPage: 1,
             total: 20,
@@ -53,8 +69,8 @@ export default {
         }
     },
     mounted(){
-        tableData = getData(10)
-        console.log(tableData);
+        this.tableData = getData(20)
+        console.log(this.tableData);
     },
     methods: {
         // 自定义索引
