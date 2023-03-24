@@ -3,7 +3,7 @@
       <publicTable2
       v-bind="da"
       @getList="getList"
-
+      @pageChange = "pageChange"
 
       @btnEdit="editClick"
       @btnRemove="deleteOneClick"
@@ -17,7 +17,11 @@
 <script>
 import publicTable2 from '@/components/publicTable2.vue';
 import tableDialog from '@/components/tableDialog.vue';
-import getData from '@/utils/data'
+
+
+// import getData from '@/utils/data'
+
+
 export default {
    components:{publicTable2,tableDialog},
    data() {
@@ -57,9 +61,10 @@ export default {
          }  
    },
    created(){
+      this.getList();
    },
    mounted(){
-      this.getList({});
+      
     },
    computed:{
    },
@@ -67,33 +72,19 @@ export default {
       rowOperation($index,row) {
 				console.log($index,row)
 			},
-      getList(searchForm){
-         // 后台接口 返回data数据
-         //    selectUser(searchForm)
-         //   .then((res) => {
-         //     console.log(res);
-         //     this.da.tableData = res.data.records;
-         //     this.da.tableTotal = res.data.total;
-         //     this.da.page.current = res.data.current;
-         //     this.da.page.pageSize = res.data.size;
-         //   })
-         //   .catch((err) => {
-         //     console.log(err);
-         //   });
-         // console.log(searchForm);
-         this.da.tableTotal = getData(10).length
-         if(!searchForm.pageSize){
-            this.da.page.currentPage = 1
-            this.da.page.pageSize = 4
-         }else{
-            this.da.page.currentPage = searchForm.currentPage
-            this.da.page.pageSize = searchForm.pageSize
-         }
-         //截取
-         this.da.tableData = getData(10).slice(
-              ( this.da.page.currentPage - 1) * this.da.page.pageSize,
-              this.da.page.currentPage * this.da.page.pageSize
-         )
+      async getList(){
+         const {currentPage, pageSize} =  this.da.page
+         const result = await this.$API.user.getPageList(currentPage, pageSize);
+         console.log('5.后端返回的数据列表',result.data.dataList);
+         this.da.tableData = result.data.dataList
+         this.da.tableTotal = result.data.total;
+      },
+      // 页数
+      pageChange(searchForm){
+         console.log(searchForm);
+         this.da.page.currentPage = searchForm.currentPage
+         this.da.page.pageSize = searchForm.pageSize
+         this.getList()
       },
       // 编辑
       editClick(){

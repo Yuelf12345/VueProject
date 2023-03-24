@@ -30,7 +30,8 @@ const asyncRoutes = [
         component: () => import('@/views/files/nodefile'),
         meta: {
           title: 'Node文档',
-          roles:['all']
+          roles:['all'],
+          btnPermissions: ['Admin', 'All', 'User']
         },
       },
       {
@@ -39,7 +40,8 @@ const asyncRoutes = [
         component: () => import('@/views/files/webpackfile'),
         meta: {
           title: 'Webpack文档',
-          roles:['all']
+          roles:['all'],
+          btnPermissions: ['User']
         }
       }]
   },{
@@ -51,7 +53,8 @@ const asyncRoutes = [
       title: '组件',
       icon: 'el-icon-lock',
       permission: true,
-      roles:['all']
+      roles:['all'],
+      btnPermissions: ['All']
     },
     children: [
       {
@@ -60,7 +63,8 @@ const asyncRoutes = [
         component: () => import('@/views/assembly/button'),
         meta: {
           title: '按钮',
-          roles:['all']
+          roles:['all'],
+          btnPermissions: ['Admin']
         },
       },
       {
@@ -69,7 +73,8 @@ const asyncRoutes = [
         component: () => import('@/views//assembly/card'),
         meta: {
           title: '卡片',
-          roles:['all']
+          roles:['all'],
+          btnPermissions: ['User']
         },
       },
       {
@@ -78,7 +83,8 @@ const asyncRoutes = [
         component: () => import('@/views//assembly/table'),
         meta: {
           title: '表格',
-          roles:['all']
+          roles:['all'],
+          btnPermissions: ['All']
         }
       }]
   },{
@@ -89,16 +95,18 @@ const asyncRoutes = [
       title: '权限管理',
       icon: 'el-icon-lock',
       permission: true,
-      roles:['admin']
+      roles:['admin'],
+      btnPermissions: ['Admin']
     },
     children: [
       {
         name: 'User',
-        path: '/acl/user',
+        path: '/acl/User',
         component: () => import('@/views/acl/user/list'),
         meta: {
           title: '用户管理',
-          roles:['admin']
+          roles:['admin'],
+          btnPermissions: ['Admin']
         },
       },
       {
@@ -107,7 +115,8 @@ const asyncRoutes = [
         component: () => import('@/views/acl/role/list'),
         meta: {
           title: '角色管理',
-          roles:['admin']
+          roles:['admin'],
+          btnPermissions: ['Admin']
         },
       },
       {
@@ -117,7 +126,8 @@ const asyncRoutes = [
         meta: {
           activeMenu: '/acl/role/list',
           title: '角色授权',
-          roles:['admin']
+          roles:['admin'],
+          btnPermissions: ['Admin']
         },
         hidden: true
       },{
@@ -126,7 +136,8 @@ const asyncRoutes = [
         component: () => import('@/views/acl/permission/list'),
         meta: {
           title: '权限管理',
-          roles:['admin']
+          roles:['admin'],
+          btnPermissions: ['Admin']
         },
       },]
   }];

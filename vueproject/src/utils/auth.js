@@ -1,20 +1,22 @@
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-const TokenKey = 'vue_admin_template_token'
 
-export function getToken(){
-    return Cookies.get(TokenKey)
+export function getToken(val){
+    // return Cookies.get(TokenKey)
+    return  localStorage.getItem(val)
 }
 
-export function setToken(token) {
+export function setToken(val,token) {
   // let seconds = 10;
   // let expires = new Date(new Date() * 1 + seconds * 1000);
-    console.log('2.设置token:'+TokenKey,token);
-    return Cookies.set(TokenKey, token,
-      // { expires: expires } 过期时间
-      )
+    console.log('2.设置token:'+token);
+    // return Cookies.set(TokenKey, token,
+    //   // { expires: expires } 过期时间
+    //   )
+    return  localStorage.setItem(val,token)
   }
   
-export function removeToken() {
-    return Cookies.remove(TokenKey)
+export function removeToken(val) {
+    // return Cookies.remove(TokenKey)
+    return  localStorage.removeItem(val)
   }

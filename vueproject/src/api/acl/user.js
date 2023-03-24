@@ -8,6 +8,12 @@ export function getUserList(search){
     })
 }
 
+export function getPageList(currentPage, pageSize){
+  return request({
+    url:`/api/getPageList/${currentPage}/${pageSize}`,
+    method: 'get',
+  })
+}
 
 // 删除一个
 export function removeUser(id) {

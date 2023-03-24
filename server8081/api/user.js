@@ -1,3 +1,6 @@
+const getData = require('../utils/dataList');
+
+
 module.exports = {
     getUserList :async ctx => {
         let { search }=ctx.query
@@ -7,6 +10,23 @@ module.exports = {
         }
     },
 
+    getPageList:async ctx=>{
+        let data = ctx.params
+        const total= getData(20).length
+        const dataList = getData(20).slice(
+            ( data.currentPage - 1) * data.pageSize,
+            data.currentPage * data.pageSize
+       )
+        return ctx.body = {
+            code:2000,
+            data:{
+                dataList,
+                total
+
+            },
+            msg: JSON.stringify(data) +' 获取成功 '
+        }
+    },
 
     removeUser:async ctx=>{
         let data = ctx.params

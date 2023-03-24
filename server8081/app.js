@@ -2,6 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const { koaBody } = require('koa-body');
 
+
 const login = require('./api/login');
 const user = require('./api/user');
 
@@ -29,6 +30,7 @@ router.get('/info',login.getInfo)
 router.post('/logout',login.logout)
 //获取列表
 router.get('/user_list',user.getUserList)
+router.get('/getPageList/:currentPage/:pageSize',user.getPageList)
 //删除用户
 router.delete('/removeUser/:id',user.removeUser)
 // 删除多选用户

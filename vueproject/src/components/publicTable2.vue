@@ -15,6 +15,7 @@
          <el-table-column v-if="tableConfig.index" type="index" label="序号" width="50" fixed></el-table-column>
       <!-- 表格中的类型 -->
          <el-table-column v-for="(item, index) in tableProp"
+          :key = 'index'
           :prop="item.prop"
           :label="item.label">
                <template slot-scope="scope">
@@ -112,11 +113,11 @@ export default {
       },
       handleSizeChange(val) {//分页每页大小改变操作事件
          this.page.pageSize = val;
-         this.$emit("getList", this.page);
+         this.$emit("pageChange", this.page);
       },
       handleCurrentChange(val) {//分页当前页改变操作事件
          this.page.currentPage = val;
-         this.$emit("getList", this.page);
+         this.$emit("pageChange", this.page);
       },
    },
 }

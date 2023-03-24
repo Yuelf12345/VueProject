@@ -57,6 +57,9 @@ data() {
         if (valid) {
           //登录逻辑
           this.loading = true;
+          this.loginForm.password = this.$md5(this.loginForm.password)
+          // console.log(this.$md5(this.loginForm.password));
+          console.log(this.loginForm.password);
           this.$store.dispatch('user/login',this.loginForm).then(()=>{
             this.$router.push({ path: this.redirect || '/' }).catch(err => { console.log(err) })
             this.loading = false

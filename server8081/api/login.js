@@ -1,3 +1,6 @@
+const KoaJwt = require('koa-jwt');
+const jwt = require('jsonwebtoken');
+
 module.exports = {
     login :async ctx=>{
         let {username,password} = ctx.request.body;
@@ -8,7 +11,7 @@ module.exports = {
                 flag:true,
                 message:"验证成功",
                 data:{
-                    token:"admin"
+                    token:'admin'
                 }
             }
         }else if(username == '22' && password !== ''){
@@ -39,17 +42,19 @@ module.exports = {
                     roles: ['admin'],
                     introduction: 'I am a super administrator',
                     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-                    name: 'Super Admin'
+                    name: 'Super Admin',
+                    btnPermissions:'Admin'
                 }
             }
         }else if (token = 'user'){
             return ctx.body = {
                 code:2000,
                 data:{
-                    roles: ['user01'],
+                    roles: ['user'],
                     introduction: 'I am an user01',
                     avatar: 'https://img.soogif.com/1CMjb5x0EATQArD0vGJ1TionelKfOQ2r.gif',
-                    name: 'Normal User01'
+                    name: 'Normal User',
+                    btnPermissions:'User'
                 }
             }
         }else {

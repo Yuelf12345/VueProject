@@ -21,9 +21,19 @@ router.beforeEach(async(to,from,next)=>{
         NProgress.start()
     }
     var userRoutes = [];
-    const hasToken = getToken()
+    // 登录token
+    let token = getToken('token')
+    //  token 过期时间
+    const tokenStartTime = getToken('tokenStartTime')
+
+    const timeOver = 3 * 3600 * 1000
+    let date = new Date().getTime()
+    if(date - tokenStartTime > timeOver) {
+        token = null
+    }   
+
     //是否有角色
-    if(hasToken){
+    if(token){
         //添加任意路由
         userRoutes.unshift(...anyRouters)
 
@@ -40,7 +50,7 @@ router.beforeEach(async(to,from,next)=>{
                     const result = await store.dispatch('user/getInfo');
                     userRoutes[0].children.push(...filterAsyncRoutes(asyncRoutes, result.roles[0]));
                     console.log(userRoutes);
-                    console.log(router);
+                    // console.log(router);
                     store.commit("user/SET_ROLES", userRoutes);
                     // router.addRoutes(userRoutes); vue3弃用
                     userRoutes.forEach( r =>{

@@ -6,7 +6,7 @@ import router from '@/router';
 
 const state = {
   //获取token
-  token: getToken(),
+  token: getToken('token'),
   //存储用户名
   name: '',
   //存储用户头像
@@ -63,13 +63,16 @@ const actions = {
   async login({ commit }, userInfo) {
     //解构出用户名与密码
     const { username, password } = userInfo;
+
     let result = await login({ username: username.trim(), password: password });
+    // let result = await login({ username: this.$md5(username.trim()), password: this.$md5(password) });
     console.log('1.后端返回登录结果:' + JSON.stringify(result));
     if (result.code == 2000) {
       //vuex存储token
       commit('SET_TOKEN', result.data.token);
       //本地持久化存储token
-      setToken(result.data.token);
+      setToken('token',result.data.token);
+      setToken('tokenStartTime',new Date().getTime());
       return 'ok'
     } else {
       return Promise.reject(new Error('fail'));
@@ -83,7 +86,8 @@ const actions = {
         const { data } = response;
         console.log('3.后端返回用户信息:' + JSON.stringify(data));
         commit('SET_USERINFO', data);
-        localStorage.setItem('role', data.roles);
+        setToken('role',data.roles);
+        setToken("btnPermissions",data.btnPermissions);
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -95,7 +99,7 @@ const actions = {
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
-        removeToken()
+        removeToken('token')
         resetRouter()
         commit('RESET_USERINFO')
         resolve()

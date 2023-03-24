@@ -70,7 +70,6 @@ export default {
     },
     mounted(){
         this.tableData = getData(20)
-        console.log(this.tableData);
     },
     methods: {
         // 自定义索引
