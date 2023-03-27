@@ -10,6 +10,7 @@
       />
 
       <tableDialog 
+      v-bind="dialog"
          ref="diaLog"
       />
     </div>
@@ -57,8 +58,68 @@ export default {
                      {prop:'C_Emission',label:'当前碳排量',type:"text"},
                      {prop:'C_Open',label:'工序状态',type:"switch"},
                      {prop:'S_Avatar',label:'图片',type:"img"}]
-            }
-         }  
+            },
+         dialog:{
+            fromConfig:{
+               ref:'ruleForm',
+               position:'left',
+               width:'100'
+            },
+            fromObj:{
+               FO_Num:'',
+               O_Num:'',
+               O_Status:'',
+               P_Workers:[],
+               P_Equipment:[],
+               C_Open:false
+            },
+            fromProp:[{
+               type:'input',
+               model:'FO_Num',
+               label:'工厂订单编号',
+               placeholder:'请输入',
+               disabled:false
+            },
+            {
+               type:'input',
+               model:'O_Num',
+               label:'订单编号',
+               placeholder:'请输入',
+               disabled:false
+            },
+            {
+               type:'select',
+               model:'O_Status',
+               label:'订单状态',
+               placeholder:'请选择',
+               disabled:false,
+               options:[{label:'未开始',value:'未开始'},{label:'进行中',value:'进行中'}]
+            },
+            {
+               type:'checkbox',
+               model:'P_Workers',
+               label:'生产工人',
+               placeholder:'请选择',
+               disabled:false,
+               checkboxs:[{label:'张三',value:'张三'},{label:'李四',value:'李四'},{label:'王五',value:'王五'}]
+            },
+            {
+               type:'checkbox',
+               model:'P_Equipment',
+               label:'生产设备',
+               placeholder:'请选择',
+               disabled:false,
+               checkboxs:[{label:'染色机',value:'染色机'},{label:'织机',value:'织机'},{label:'加捻机',value:'加捻机'}]
+            },
+            {
+               type:'switch',
+               model:'C_Open',
+               label:'工序状态',
+               placeholder:'请选择',
+               disabled:false,
+            }]
+         }
+      }  
    },
    created(){
       this.getList();
@@ -87,7 +148,12 @@ export default {
          this.getList()
       },
       // 编辑
-      editClick(){
+      editClick(row){
+         if(row){
+            this.$refs.diaLog.dialogTitle = "编辑用户"
+         }else{
+            this.$refs.diaLog.dialogTitle = "添加用户"
+         }
          this.$refs.diaLog.open()
       },
       // 删除

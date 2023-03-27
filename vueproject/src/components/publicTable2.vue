@@ -1,5 +1,6 @@
 <template>
    <div>
+      <el-button type="primary"  @click="handleClick('Edit')">新增</el-button>
       <!-- 表格部分 -->
       <el-table 
       :data="tableData" 
