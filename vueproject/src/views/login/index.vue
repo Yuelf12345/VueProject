@@ -59,7 +59,7 @@ data() {
           this.loading = true;
           this.loginForm.password = this.$md5(this.loginForm.password)
           // console.log(this.$md5(this.loginForm.password));
-          console.log(this.loginForm.password);
+          console.log('0.用户密码md5加密处理',this.loginForm.password);
           this.$store.dispatch('user/login',this.loginForm).then(()=>{
             this.$router.push({ path: this.redirect || '/' }).catch(err => { console.log(err) })
             this.loading = false

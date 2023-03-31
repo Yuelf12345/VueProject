@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    console.log('4.展示路由信息,动态渲染菜单' + this.$store.getters.menuData);
+    console.log('5.展示路由信息,动态渲染菜单' + this.$store.getters.menuData);
   },
   computed: {
     //获取需要展示的路由

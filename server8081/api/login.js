@@ -4,24 +4,33 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     login :async ctx=>{
         let {username,password} = ctx.request.body;
+        
         if(username == '11' && password !== ''){
             ctx.status = 200;
+            ctx.cookies.set('vue', 'admin', {
+                maxAge: 60*1000
+            })
             return ctx.body = {
                 code:2000,
                 flag:true,
                 message:"验证成功",
                 data:{
-                    token:'admin'
+                    token:'admin',
+                    refresh_token:'refresh_admin'
                 }
             }
         }else if(username == '22' && password !== ''){
             ctx.status = 200;
+            ctx.cookies.set('vue', 'user', {
+                maxAge: 60*1000
+            })
             return ctx.body = {
                 code:2000,
                 flag:true,
                 message:"验证成功",
                 data:{
-                    token:"user"
+                    token:"user",
+                    refresh_token:'refresh_user'
                 }
             }
         }else{
