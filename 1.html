@@ -10,7 +10,20 @@
 
 <body>
     <script>
-
+        let users = [{
+            id: 1,
+            name: 'John',
+            age: 22
+        }, {
+            id: 2,
+            name: 'Tom',
+            age: 22
+        }, {
+            id: 3,
+            name: 'Balaji',
+            age: 24
+        }];
+        console.log(users.find(user => user.name == 'Tom'));
     </script>
 </body>
 

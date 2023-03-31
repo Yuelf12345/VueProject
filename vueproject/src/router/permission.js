@@ -52,6 +52,7 @@ router.beforeEach(async(to,from,next)=>{
         }else{
             //获取用户名
             const hasGetUserInfo = store.getters.name
+            console.log('11111111',hasGetUserInfo);
             if(hasGetUserInfo){
                 next()
             }else{

@@ -65,8 +65,10 @@ const actions = {
     const { username, password } = userInfo;
 
     let result = await login({ username: username.trim(), password: password });
+    result = result.data
     // let result = await login({ username: this.$md5(username.trim()), password: this.$md5(password) });
     console.log('1.后端返回登录结果:' + JSON.stringify(result));
+    console.log(result.code,result.data.token);
     if (result.code == 2000) {
       //vuex存储token
       commit('SET_TOKEN', result.data.token);
@@ -83,7 +85,7 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response;
+        const { data } = response.data;
         console.log('3.后端返回用户信息:' + JSON.stringify(data));
         commit('SET_USERINFO', data);
         setToken('role',data.roles);
@@ -113,7 +115,7 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken()
-      commit('RESET_STATE')
+      // commit('RESET_STATE')
       commit('RESET_USERINFO')
       resolve()
     })
