@@ -20,8 +20,9 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
-import router from '@/router'
+import { getToken,setToken,removeToken } from '@/utils/auth'
+import router, {resetRouter} from '@/router'
+import { refreshToken } from '@/api/user'
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, 
@@ -43,41 +44,37 @@ service.interceptors.request.use(
         return Promise.reject(error)
     }
 )
-
 // 响应拦截
-// service.interceptors.response.use(
-//     response => {
-//         const res = response.data
-//         if (res.state == 2) {
-//             Message({
-//                 message: res.message || 'Error',
-//                 type: 'error',
-//                 duration: 5 * 1000
-//             })
-//             if (res.state == 1 ) {
-//                 MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-//                             confirmButtonText: 'Re-Login',
-//                             cancelButtonText: 'Cancel',
-//                             type: 'warning'
-//                         })
-//             }
-//             return Promise.reject(new Error(res.message || 'Error'))
-//         } else {
-//             return res
-//         }
-//     },
-//     error => {
-//         console.log('err' + error)
-//         Message({
-//             message: error.message,
-//             type: 'error',
-//             duration: 5 * 1000
-//         })
-//         return Promise.reject(error)
-//     }
-// )
 service.interceptors.response.use(
-    response => {
+    async response => {
+        const res = response.data
+        if (res.code === 401) {
+            // 证明 Token 过期了
+            // 1. 强制跳转到登录页
+            // router.replace('/').catch(() =>{})
+            // 2. 清空 vuex 和 localStorage 中的数据
+            removeToken('token')
+            resetRouter()
+            store.commit('user/RESET_USERINFO')
+            let refresh_token = getToken('refresh_token')
+            if (res.code === 401 && refresh_token){
+                let result = await refreshToken(refresh_token);
+                result = result.data
+                console.log('刷新结果',result);
+                if (result.code == 2000) {
+                    //vuex存储token
+                    store.commit('user/SET_TOKEN', result.data.token);
+                    store.commit('user/SET_RefreshTOKEN',result.data.refresh_token)
+                    //本地持久化存储token
+                    setToken('token',result.data.token);
+                    setToken('refresh_token',result.data.refresh_token);
+                    setToken('tokenStartTime',new Date().getTime());
+                    return 'ok'
+                  } else {
+                    return Promise.reject(new Error('fail'));
+                }
+            }
+        }
         return response
      },
      error => {

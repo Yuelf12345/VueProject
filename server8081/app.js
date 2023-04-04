@@ -28,6 +28,8 @@ router.get('/',(ctx,next)=>{
 router.post('/login',login.login)
 router.get('/info',login.getInfo)
 router.post('/logout',login.logout)
+router.put('/refresh_token/:refresh_token',login.refresh_token)
+
 //获取列表
 router.get('/user_list',user.getUserList)
 router.get('/getPageList/:currentPage/:pageSize',user.getPageList)

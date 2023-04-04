@@ -136,13 +136,12 @@ export default {
       async getList(){
          const {currentPage, pageSize} =  this.da.page
          const result = await this.$API.user.getPageList(currentPage, pageSize);
-         console.log('5.后端返回的数据列表',result.data.dataList);
-         this.da.tableData = result.data.dataList
-         this.da.tableTotal = result.data.total;
+         console.log('6.后端返回的数据列表',result.data.data.dataList);
+         this.da.tableData = result.data.data.dataList
+         this.da.tableTotal = result.data.data.total;
       },
       // 页数
       pageChange(searchForm){
-         console.log(searchForm);
          this.da.page.currentPage = searchForm.currentPage
          this.da.page.pageSize = searchForm.pageSize
          this.getList()

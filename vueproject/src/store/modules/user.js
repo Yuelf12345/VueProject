@@ -7,6 +7,8 @@ import router from '@/router';
 const state = {
   //获取token
   token: getToken('token'),
+  //刷新token
+  refresh_token:getToken('refresh_token'),
   //存储用户名
   name: '',
   //存储用户头像
@@ -27,6 +29,9 @@ const mutations = {
   //存储token
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_RefreshTOKEN: (state, refresh_token) => {
+    state.refresh_token = refresh_token
   },
   //设置用户信息
   SET_USERINFO: (state, userInfo) => {
@@ -68,12 +73,13 @@ const actions = {
     result = result.data
     // let result = await login({ username: this.$md5(username.trim()), password: this.$md5(password) });
     console.log('1.后端返回登录结果:' + JSON.stringify(result));
-    console.log(result.code,result.data.token);
     if (result.code == 2000) {
       //vuex存储token
       commit('SET_TOKEN', result.data.token);
+      commit('SET_RefreshTOKEN',result.data.refresh_token)
       //本地持久化存储token
       setToken('token',result.data.token);
+      setToken('refresh_token',result.data.refresh_token);
       setToken('tokenStartTime',new Date().getTime());
       return 'ok'
     } else {
@@ -102,6 +108,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken('token')
+        removeToken('refresh_token')
         resetRouter()
         commit('RESET_USERINFO')
         resolve()
@@ -114,7 +121,8 @@ const actions = {
   //移除token
   resetToken({ commit }) {
     return new Promise(resolve => {
-      removeToken()
+      removeToken('token')
+      removeToken('refresh_token')
       // commit('RESET_STATE')
       commit('RESET_USERINFO')
       resolve()

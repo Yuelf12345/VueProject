@@ -42,3 +42,11 @@ export function logout() {
         method: 'post'
     })
 }
+
+//刷新接口
+export function refreshToken(data){
+    return request({
+        url: `/api/refresh_token/${data}`,
+        method: 'put',
+    })
+}

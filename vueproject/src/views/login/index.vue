@@ -11,6 +11,7 @@
       <el-form-item class="login-button">
         <el-button :loading="loading" type="primary" @click.native.prevent="handleLogin">提交</el-button>
         <el-button @click="resetForm('loginForm')">重置</el-button>
+        <el-button @click="test()">测试</el-button>
       </el-form-item>
       <div class="tips">
         <span style="margin-right:20px;">admin: 11  user: 22</span>
@@ -20,6 +21,7 @@
   </div>
 </template>
 <script>
+import { refreshToken } from '@/api/user'
 export default {
 data() {
     
@@ -74,6 +76,10 @@ data() {
     },
     resetForm(loginForm) {
       this.$refs.loginForm.resetFields();
+    },
+   async test(){
+      let result = await refreshToken(111);
+          console.log('刷新结果',result);
     }
   }
 }
