@@ -60,7 +60,7 @@ service.interceptors.response.use(
             if (res.code === 401 && refresh_token){
                 let result = await refreshToken(refresh_token);
                 result = result.data
-                console.log('刷新结果',result);
+                console.log('刷新结果',result.code);
                 if (result.code == 2000) {
                     //vuex存储token
                     store.commit('user/SET_TOKEN', result.data.token);
@@ -69,6 +69,9 @@ service.interceptors.response.use(
                     setToken('token',result.data.token);
                     setToken('refresh_token',result.data.refresh_token);
                     setToken('tokenStartTime',new Date().getTime());
+
+                    const x = setToken('token')
+                    console.log(x);
                     return 'ok'
                   } else {
                     return Promise.reject(new Error('fail'));

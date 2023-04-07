@@ -83,6 +83,7 @@ router.beforeEach(async(to,from,next)=>{
             next()
         }else {
         //跳转到登录
+        console.log('1111无token');
         next(`/login?redirect=${to.path}`)
         NProgress.done()
         }

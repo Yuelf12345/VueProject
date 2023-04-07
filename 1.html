@@ -10,21 +10,19 @@
 
 <body>
     <script>
-        let users = [{
-            id: 1,
-            name: 'John',
-            age: 22
-        }, {
-            id: 2,
-            name: 'Tom',
-            age: 22
-        }, {
-            id: 3,
-            name: 'Balaji',
-            age: 24
-        }];
-        console.log(users.find(user => user.name == 'Tom'));
-    </script>
+        const data = [{p:'a',c:'b1'},{p:'a',c:'b2'},{p:'b1',c:'c3'},{p:'b2',c:'c4'},{p:'c4',c:'d8'}]
+        var map = new Map()
+        function search(data,option){
+            data.forEach(i=>{
+                if(i.p == option){
+                    search(data,i.c)
+                    map.set(i.c,i.c)
+                }
+            })
+            return map
+        }
+        console.log(search(data,'a'));
+</script>
 </body>
 
 </html>

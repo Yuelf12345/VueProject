@@ -26,7 +26,7 @@ module.exports = {
 
         if (result) {
             //生成token
-            let token = await GenerateToken(password,findResult.roles,60)
+            let token = await GenerateToken(password,findResult.roles,10)
             // 生成刷新token
             let refresh_token = await GenerateToken(token,'',360)
             // 设置cookie

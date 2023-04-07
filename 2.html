@@ -10,15 +10,19 @@
 
 <body>
     <script>
-        var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+    var arr = ['a','a','b','c','c','c','d','d','d']
 
-        const flatten = (arr) => {
-            while (arr.some(item => Array.isArray(item))) {
-                arr = [].concat(...arr);
-            }
-            return arr;
-        };
-        console.log(new Set(flatten(arr)));
+    function dep(a){
+        const result = []
+        a.forEach((i)=>{
+            (!result.includes(i))?result.push(i):result.push("")
+        })
+        return result
+    }
+
+    console.log(dep(arr));
+
+
     </script>
 </body>
 

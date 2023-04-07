@@ -80,9 +80,9 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-            console.log('submit!')
+            console.log('submit!',formName,this.fromObj)
+            console.log(this[formName]);
             this.loading = true;
-            console.log(this);
             setTimeout(()=>{
               this.loading = false;
               this.dialogFormVisible = false;
