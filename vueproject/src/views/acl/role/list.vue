@@ -12,6 +12,7 @@
       <tableDialog 
       v-bind="dialog"
          ref="diaLog"
+      @updateRef = "updateClick"
       />
     </div>
 </template>
@@ -96,21 +97,35 @@ export default {
                options:[{label:'未开始',value:'未开始'},{label:'进行中',value:'进行中'}]
             },
             {
-               type:'checkbox',
-               model:'P_Workers',
-               label:'生产工人',
-               placeholder:'请选择',
-               disabled:false,
-               checkboxs:[{label:'张三',value:'张三'},{label:'李四',value:'李四'},{label:'王五',value:'王五'}]
+               type:'input',
+               model:'P_Progress',
+               label:'生产进度',
+               placeholder:'请输入',
+               disabled:false
             },
             {
-               type:'checkbox',
-               model:'P_Equipment',
-               label:'生产设备',
-               placeholder:'请选择',
-               disabled:false,
-               checkboxs:[{label:'染色机',value:'染色机'},{label:'织机',value:'织机'},{label:'加捻机',value:'加捻机'}]
+               type:'input',
+               model:'C_Emission',
+               label:'当前碳排量',
+               placeholder:'请输入',
+               disabled:false
             },
+            // {
+            //    type:'checkbox',
+            //    model:'P_Workers',
+            //    label:'生产工人',
+            //    placeholder:'请选择',
+            //    disabled:false,
+            //    checkboxs:[{label:'张三',value:'张三'},{label:'李四',value:'李四'},{label:'王五',value:'王五'}]
+            // },
+            // {
+            //    type:'checkbox',
+            //    model:'P_Equipment',
+            //    label:'生产设备',
+            //    placeholder:'请选择',
+            //    disabled:false,
+            //    checkboxs:[{label:'染色机',value:'染色机'},{label:'织机',value:'织机'},{label:'加捻机',value:'加捻机'}]
+            // },
             {
                type:'switch',
                model:'C_Open',
@@ -139,6 +154,11 @@ export default {
          console.log('6.后端返回的数据列表',result.data.data.dataList);
          this.da.tableData = result.data.data.dataList
          this.da.tableTotal = result.data.data.total;
+         console.log(result.data.data.dataList.length);
+         if(result.data.data.dataList.length == 0){
+            this.da.page.currentPage = 1 ? 1 : 2
+            this.getList()
+         }
       },
       // 页数
       pageChange(searchForm){
@@ -150,9 +170,17 @@ export default {
       editClick(row){
          if(row){
             this.$refs.diaLog.dialogTitle = "编辑用户"
+            this.dialog.fromObj =  row
          }else{
             this.$refs.diaLog.dialogTitle = "添加用户"
-         }
+            this.dialog.fromObj = {
+               FO_Num:'',
+               O_Num:'',
+               O_Status:'',
+               P_Workers:[],
+               P_Equipment:[],
+               C_Open:false
+         }}
          this.$refs.diaLog.open()
       },
       // 删除
@@ -164,11 +192,11 @@ export default {
             }).then(async ()=>{
                // 删除操作
                await this.$API.user.removeUser(data.id).then((res)=>{
-                  if(res.code == '2000'){
+                  if(res.data.code == '2000'){
                      this.$message({showClose: true,message: "删除用户成功",type: "success",});
-                     console.log(res.msg);
+                     console.log(res.data.msg);
                   }else{
-                     this.$message({showClose: true,message: "删除用户失败",type: "error",});    
+                     this.$message({showClose: true,message: "删除用户失败",type: "error",});
                   }
                }).catch((err)=>{console.log(err);})
                this.getList({});
@@ -176,6 +204,10 @@ export default {
                console.log(err);
                this.$message({showClose: true,message: "已取消删除",type: "info",}); 
         });
+      },
+      // 父组件修改props
+      updateClick(data){
+         this.dialog.fromObj = data
       }
    },
 }

@@ -1,15 +1,17 @@
 <template>
     <div> 
         webpackfile
-
+        <son :msg.sync="msg"></son>
     </div>
 </template>
 <script>
-
+import son from './son.vue'
  
 export default {
+ components:{son},
    data() {
-      return {
+      return { 
+            msg:"hello"
       }
    },
    created(){

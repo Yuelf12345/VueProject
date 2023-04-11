@@ -136,7 +136,7 @@ module.exports = {
 
 async function  GenerateToken(m,r,t){
     // 生成token
-    let payload = {m,roles:r,time:new Date().getTime(),timeout:1000 * t}
+    let payload = {m,roles:r,time:new Date().getTime(),timeout:1000 *360 *t}
     // jwt加密
     let token = jwt.sign(payload, "Yue");
 

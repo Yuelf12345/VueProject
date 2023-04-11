@@ -2,7 +2,6 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const { koaBody } = require('koa-body');
 
-
 const login = require('./api/login');
 const user = require('./api/user');
 
@@ -21,6 +20,9 @@ server.use(koaBody(
     }
 ));
 
+
+
+
 router.get('/',(ctx,next)=>{
     ctx.body = '后台'
 });
@@ -33,6 +35,10 @@ router.put('/refresh_token/:refresh_token',login.refresh_token)
 //获取列表
 router.get('/user_list',user.getUserList)
 router.get('/getPageList/:currentPage/:pageSize',user.getPageList)
+//新增用户
+router.post('/addUser',user.addUser)
+// 更新用户
+router.put('/upDataUser',user.upDataUser)
 //删除用户
 router.delete('/removeUser/:id',user.removeUser)
 // 删除多选用户

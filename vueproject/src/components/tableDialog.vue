@@ -37,10 +37,17 @@
                 <img width="100%" :src="dialogImageUrl" alt="">
               </el-dialog> -->
         </el-form-item>
-        <el-form-item>
-          <el-button :loading="loading" type="primary" @click="onSubmit(fromConfig.ref)">立即创建</el-button>
+
+        <el-form-item v-if="this.isAdd">
           <el-button @click="onReset(fromConfig.ref)">重置</el-button>
+          <el-button :loading="loading" type="primary" @click="onSubmit(fromConfig.ref)">立即创建</el-button>
         </el-form-item>
+
+        <el-form-item v-else-if="!this.isAdd">
+          <el-button @click="onCancel(fromConfig.ref)">取消</el-button>
+          <el-button :loading="loading" type="primary" @click="onUpData(fromConfig.ref)">保存</el-button>
+        </el-form-item>
+
       </el-form>
     </el-dialog>
   </div>
@@ -68,42 +75,73 @@ export default {
     return {
       dialogTitle: "",
       dialogFormVisible: false,
-      loading:false
+      loading:false,
+      isAdd:false,
     };
   },
   created() { },
   computed: {},
+  watch: {
+    fromObj: {
+      handler: function (val) {
+        // 将form实例返回到父级
+        this.$emit('updateRef', val)
+      },
+      deep: true // 深度监听
+    },
+  },
   methods: {
     open() {
       this.dialogFormVisible = true;
+      console.log(this.dialogTitle);
+      if(this.dialogTitle == '添加用户'){
+        this.isAdd = true
+      }else{
+        this.isAdd = false
+      }
     },
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-            console.log('submit!',formName,this.fromObj)
-            console.log(this[formName]);
             this.loading = true;
             setTimeout(()=>{
               this.loading = false;
               this.dialogFormVisible = false;
-              this.$refs[formName].resetFields()
-            },1500)
-          //   this.$API.user[user.id ? "update" : "add"](user).then((result) => {
-          //   this.loading = false;
-          //   this.$message.success("保存成功!");
-          //   this.getUsers(user.id ? this.page : 1);
-          //   this.user = {};
-          //   this.dialogFormVisible = false;
-          // }
-          // );
+              this.$API.user.addUser(this.$props.fromObj).then((res)=>{
+                  console.log('7.添加用户返回结果',res);
+                  this.$refs[formName].resetFields()
+              })
+            },500)
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
+    onUpData(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+            this.loading = true;
+            setTimeout(()=>{
+              this.loading = false;
+              this.dialogFormVisible = false;
+              this.$API.user.upDataUser(this.$props.fromObj).then((res)=>{
+                  console.log('8.更新用户返回结果',res);
+                  this.$refs[formName].resetFields()
+              })
+            },500)
+        } else {
+          console.log('error upData!!');
+          return false;
+        }
+      });
+    },
     onReset(formName) {
       this.$refs[formName].resetFields()
+    },
+    onCancel(formName){
+      this.$refs[formName].resetFields()
+      this.dialogFormVisible = false;
     }
   },
 };

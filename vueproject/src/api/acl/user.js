@@ -15,6 +15,22 @@ export function getPageList(currentPage, pageSize){
   })
 }
 
+//新增
+export function addUser(data){
+  return request({
+    url:'/api/addUser',
+    method: 'post',
+    data,
+  })
+}
+// 更新
+export function upDataUser(data){
+  return request({
+    url:'/api/upDataUser',
+    method:'put',
+    data
+  })
+}
 // 删除一个
 export function removeUser(id) {
     return request({
