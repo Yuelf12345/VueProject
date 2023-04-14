@@ -3,6 +3,36 @@ import routerView from '@/layout/components/AppMain.vue'
 
 // 异步路由 不同用户不同路由,根据权限来定的
 const asyncRoutes = [
+    {
+      name: 'Order',
+      path: '/order',
+      component: routerView,
+      redirect: '/order/oList',
+      meta: {
+        title: '订单管理',
+        icon: 'el-icon-tickets',
+        permission: true,
+        roles:['all']
+      },
+      children: [{
+        name: 'WorkOrder',
+        path: '/order/oList',
+        component: () => import('@/views/order/oList'),
+        meta: {
+          title: '订单列表',
+          roles:['all']
+        },
+      },
+        {
+          name: 'WorkOrder',
+          path: '/order/woList',
+          component: () => import('@/views/order/workOrder'),
+          meta: {
+            title: '生产订单',
+            roles:['all']
+          },
+        }]
+    },
    {
     name: 'Files',
     path: '/files',
@@ -10,7 +40,7 @@ const asyncRoutes = [
     redirect: '/files/vue',
     meta: {
       title: '文档',
-      icon: 'el-icon-lock',
+      icon: 'el-icon-files',
       permission: true,
       roles:['all']
     },
@@ -51,7 +81,7 @@ const asyncRoutes = [
     redirect: '/assembly/button',
     meta: {
       title: '组件',
-      icon: 'el-icon-lock',
+      icon: 'el-icon-guide',
       permission: true,
       roles:['all'],
       btnPermissions: ['All']

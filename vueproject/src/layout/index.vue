@@ -40,6 +40,7 @@ export default {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
+    overflow: auto;
   }
  
   .main-aside-collapsed {
@@ -60,5 +61,6 @@ export default {
   .main-center {
     padding: 0px;
     border-left: 2px solid #f4d1d1;
+    overflow: auto;
   }
 </style>

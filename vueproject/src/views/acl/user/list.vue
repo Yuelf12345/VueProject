@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import publicTable from '@/components/publicTable.vue';
+import publicTable from '@/components/publicTable3.vue';
 export default {
     components:{publicTable},
     data() {
