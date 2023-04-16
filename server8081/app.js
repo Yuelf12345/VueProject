@@ -4,6 +4,7 @@ const { koaBody } = require('koa-body');
 
 const login = require('./api/login');
 const user = require('./api/user');
+const role = require('./api/roles');
 
 const server = new Koa();
 const router = new Router();
@@ -26,7 +27,7 @@ server.use(koaBody(
 router.get('/',(ctx,next)=>{
     ctx.body = '后台'
 });
-
+//登录信息
 router.post('/login',login.login)
 router.get('/info',login.getInfo)
 router.post('/logout',login.logout)
@@ -35,15 +36,18 @@ router.put('/refresh_token/:refresh_token',login.refresh_token)
 //获取列表
 router.get('/user_list',user.getUserList)
 router.get('/getPageList/:currentPage/:pageSize',user.getPageList)
-//新增用户
 router.post('/addUser',user.addUser)
-// 更新用户
 router.put('/upDataUser',user.upDataUser)
-//删除用户
 router.delete('/removeUser/:id',user.removeUser)
-// 删除多选用户
 router.delete('/removeUserAll',user.removeUserAll)
 
+//角色信息
+router.get('/role_list',role.getRolesList)
+router.get('/role_getPageList/:currentPage/:pageSize',role.getPageList)
+router.get('/getRole/:roleId',role.getRole)
+router.put('/changeRoleStatus',role.changeRoleStatus)
+router.put('/upDateRole',role.upDateRole)
+router.delete('/removeRole/:roleId',role.removeRole)
 
 server.use(router.routes());
 
