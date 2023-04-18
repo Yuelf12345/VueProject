@@ -150,7 +150,7 @@ export default {
     },
     async getList(){
        const {currentPage, pageSize} =  this.da.page
-       const result = await this.$API.user.getPageList(currentPage, pageSize);
+       const result = await this.$API.order.getOrderList(currentPage, pageSize);
        console.log('6.后端返回的数据列表',result.data.data.dataList);
        this.da.tableData = result.data.data.dataList
        this.da.tableTotal = result.data.data.total;
@@ -191,7 +191,7 @@ export default {
              type: "warning",
           }).then(async ()=>{
              // 删除操作
-             await this.$API.user.removeUser(data.id).then((res)=>{
+             await this.$API.order.removeOrder(data.id).then((res)=>{
                 if(res.data.code == '2000'){
                    this.$message({showClose: true,message: "删除用户成功",type: "success",});
                    console.log(res.data.msg);

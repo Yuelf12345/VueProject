@@ -5,6 +5,7 @@ const { koaBody } = require('koa-body');
 const login = require('./api/login');
 const user = require('./api/user');
 const role = require('./api/roles');
+const order = require('./api/order');
 
 const server = new Koa();
 const router = new Router();
@@ -33,13 +34,13 @@ router.get('/info',login.getInfo)
 router.post('/logout',login.logout)
 router.put('/refresh_token/:refresh_token',login.refresh_token)
 
-//获取列表
+//用户信息
 router.get('/user_list',user.getUserList)
-router.get('/getPageList/:currentPage/:pageSize',user.getPageList)
-router.post('/addUser',user.addUser)
-router.put('/upDataUser',user.upDataUser)
-router.delete('/removeUser/:id',user.removeUser)
-router.delete('/removeUserAll',user.removeUserAll)
+router.get('/user_getPageList',user.getPageList)
+router.get('/getUser/:roleId',user.getUser)
+router.put('/changeUserStatus',user.changeUserStatus)
+router.put('/upDateUser',user.upDateUser)
+router.delete('/removeUser/:roleId',user.removeUser)
 
 //角色信息
 router.get('/role_list',role.getRolesList)
@@ -48,6 +49,14 @@ router.get('/getRole/:roleId',role.getRole)
 router.put('/changeRoleStatus',role.changeRoleStatus)
 router.put('/upDateRole',role.upDateRole)
 router.delete('/removeRole/:roleId',role.removeRole)
+
+// 订单信息
+router.get('/order_list',order.getOrderList)
+router.get('/getOrderList/:currentPage/:pageSize',order.getOrderList)
+router.post('/addOrder',order.addOrder)
+router.put('/upDataOrder',order.upDataOrder)
+router.delete('/removeOrder/:id',order.removeOrder)
+router.delete('/removeOrderAll',order.removeOrderAll)
 
 server.use(router.routes());
 

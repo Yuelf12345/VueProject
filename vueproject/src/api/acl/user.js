@@ -8,41 +8,43 @@ export function getUserList(search){
     })
 }
 
-export function getPageList(currentPage, pageSize){
+export function getPageList(currentPage, queryParams){
   return request({
-    url:`/api/getPageList/${currentPage}/${pageSize}`,
+    url:'/api/user_getPageList',
     method: 'get',
+    params: {currentPage, queryParams}
+  })
+}
+// 获取user信息
+export function getUser(getUser){
+  return request({
+    url:`/api/getUser/${getUser}`,
+    method:'get'
   })
 }
 
-//新增
-export function addUser(data){
+// 更新状态
+export function changeUserStatus(data){
   return request({
-    url:'/api/addUser',
-    method: 'post',
-    data,
-  })
-}
-// 更新
-export function upDataUser(data){
-  return request({
-    url:'/api/upDataUser',
+    url:'/api/changeUserStatus',
     method:'put',
     data
   })
 }
+
+// 更新角色
+export function upDateUser(data){
+  return request({
+    url:'/api/upDateUser',
+    method:'put',
+    data
+  })
+}
+
 // 删除一个
-export function removeUser(id) {
-    return request({
-      url: `/api/removeUser/${id}`,
-      method: 'delete'
-    })
-  }
-// 删除多个
-  export function removeUserAll(ids) {
-    return request({
-      url: '/api/removeUser',
-      method: 'delete',
-      data: ids
-    })
-  }
+export function removeUser(userId) {
+  return request({
+    url: `/api/removeUser/${userId}`,
+    method: 'delete'
+  })
+}

@@ -107,7 +107,7 @@ export default {
             setTimeout(()=>{
               this.loading = false;
               this.dialogFormVisible = false;
-              this.$API.user.addUser(this.$props.fromObj).then((res)=>{
+              this.$API.order.addOrder(this.$props.fromObj).then((res)=>{
                   console.log('7.添加用户返回结果',res);
                   this.$refs[formName].resetFields()
               })
@@ -125,7 +125,7 @@ export default {
             setTimeout(()=>{
               this.loading = false;
               this.dialogFormVisible = false;
-              this.$API.user.upDataUser(this.$props.fromObj).then((res)=>{
+              this.$API.order.upDataOrder(this.$props.fromObj).then((res)=>{
                   console.log('8.更新用户返回结果',res);
                   this.$refs[formName].resetFields()
               })
