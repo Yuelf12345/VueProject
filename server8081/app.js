@@ -43,7 +43,7 @@ router.delete('/removeUserAll',user.removeUserAll)
 
 //角色信息
 router.get('/role_list',role.getRolesList)
-router.get('/role_getPageList/:currentPage/:pageSize',role.getPageList)
+router.get('/role_getPageList',role.getPageList)
 router.get('/getRole/:roleId',role.getRole)
 router.put('/changeRoleStatus',role.changeRoleStatus)
 router.put('/upDateRole',role.upDateRole)

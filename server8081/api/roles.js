@@ -17,8 +17,8 @@ module.exports = {
         }
     },
     getPageList: async ctx =>{
-        let data = ctx.params
-        let [rs] = await db.query("select * from `sys_role`where `isDel`= ?",[
+        let data = ctx.query
+        let [rs] = await db.query(`select * from sys_role where isDel= ? AND roleName like "%${data["queryParams[roleName]"]}%" AND roleKey like "%${data["queryParams[roleKey]"]}%" AND status like "%${data["queryParams[status]"]}%"` ,[
             0
         ]);
         return ctx.body = {

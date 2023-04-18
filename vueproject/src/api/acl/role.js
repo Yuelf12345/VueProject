@@ -8,10 +8,11 @@ export function getRoleList(search){
     })
 }
 
-export function getPageList(currentPage, pageSize){
+export function getPageList(currentPage, queryParams){
   return request({
-    url:`/api/role_getPageList/${currentPage}/${pageSize}`,
+    url:'/api/role_getPageList',
     method: 'get',
+    params: {currentPage, queryParams}
   })
 }
 // 获取role信息

@@ -15,7 +15,7 @@ const whiteList = ['/login']  //  无重定向白名单
 
 // 全局前置守卫鉴权
 router.beforeEach(async(to,from,next)=>{
-
+document.title = to.meta.title
     
 // var _hmt = _hmt || [];
 // (function() {
