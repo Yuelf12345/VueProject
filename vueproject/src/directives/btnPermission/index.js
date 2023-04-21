@@ -1,12 +1,18 @@
 import Vue from 'vue'
 
+// 自定义指令 https://v2.cn.vuejs.org/v2/guide/custom-directive.html
 const btnPermissions = Vue.directive('btnPermission', {
+    /**
+     * @param {*} el :指令所绑定的元素，可以用来直接操作 DOM。
+     * @param {*} binding :一个对象，包含以下 property(name：指令名;value：指令的绑定值)
+     * @param {*} vnode :vnode：Vue 编译生成的虚拟节点
+     */
     bind: function (el, binding, vnode) {
         let btnPermissionsArr = [];
         if(binding.value){
-            btnPermissionsArr = Array.of(binding.value);
+            btnPermissionsArr = Array.of(binding.value);//[binding.value]
         }else{
-            btnPermissionsArr = vnode.context.$route.meta.btnPermissions;
+            btnPermissionsArr = vnode.context.$route.meta.btnPermissions;//['Admin']
         }
         if (!Vue.prototype.$_has(btnPermissionsArr)) {
             if (!el.parentNode) {

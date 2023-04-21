@@ -6,6 +6,7 @@
         "microtask",
         "MVVM",
         "quanxuan",
+        "vnode",
         "vuex"
     ]
 }

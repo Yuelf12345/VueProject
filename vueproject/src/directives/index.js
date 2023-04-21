@@ -1,4 +1,4 @@
-import btnPermissions from './permission'
+import btnPermissions from './btnPermission'
 
 const permission = {
     btnPermissions
