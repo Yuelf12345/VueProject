@@ -38,8 +38,12 @@
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport">导出</el-button>
       </el-col>
       <el-col :span="1.5" @queryTable="getList">
-        <el-button type="button" icon="el-icon-search" size="mini" circle @click="showSearch = !showSearch"></el-button>
-        <el-button type="button" icon="el-icon-refresh" size="mini" circle @click="getList()"></el-button>
+        <el-tooltip content= "显示/隐藏" placement="top">
+          <el-button type="button" icon="el-icon-search" size="mini" circle @click="showSearch = !showSearch"></el-button>
+        </el-tooltip>
+        <el-tooltip content= "刷新" placement="top">
+          <el-button type="button" icon="el-icon-refresh" size="mini" circle @click="getList()"></el-button>
+        </el-tooltip>
       </el-col>
     </el-row>
     <!-- 表单部分 -->
@@ -150,6 +154,7 @@ export default {
       this.queryParams.roleName = ''
       this.queryParams.roleKey = ''
       this.queryParams.status = ''
+      this.getList()
     },
     /** 导出按钮操作 */
     handleExport() {

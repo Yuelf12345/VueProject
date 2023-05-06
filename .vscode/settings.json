@@ -3,8 +3,10 @@
         "Amout",
         "danxuan",
         "echarts",
+        "microtask",
         "MVVM",
         "quanxuan",
+        "vnode",
         "vuex"
     ]
 }
